@@ -1,0 +1,4 @@
+node_modules/
+locations.ndjson
+.env
+*.log

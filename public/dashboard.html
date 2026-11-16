@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لوحة التحكم - البيانات المسجلة</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 20px; background-color: #f4f6f8; }
+    h1 { color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    th, td { padding: 12px 15px; text-align: right; border-bottom: 1px solid #ddd; }
+    th { background-color: #1565c0; color: white; }
+    tr:hover { background-color: #f5f5f5; }
+    .map-link { color: #1565c0; text-decoration: none; font-weight: bold; }
+    .map-link:hover { text-decoration: underline; }
+    .empty { text-align: center; padding: 30px; color: #666; }
+    
+    /* تنسيق زرار الخروج */
+    .logout-btn { float: left; color: #c62828; text-decoration: none; background: #ffebee; padding: 8px 15px; border-radius: 5px; font-weight: bold; font-size: 14px; transition: 0.3s; }
+    .logout-btn:hover { background: #ffcdd2; }
+  </style>
+</head>
+<body>
+  
+  <!-- زرار تسجيل الخروج -->
+  <a href="/api/logout" class="logout-btn">تسجيل خروج 🚪</a>
+
+  <h1>لوحة تحكم البيانات المسجلة</h1>
+  <p>هنا تظهر جميع الإحداثيات التي تمت مشاركتها بموافقة المستخدم.</p>
+  
+  <div style="margin-bottom: 20px; clear: both;">
+    <!-- زرار التحديث -->
+    <button id="refreshBtn" style="padding: 10px 20px; background: #2e7d32; color: white; border: none; border-radius: 5px; cursor: pointer;">تحديث البيانات (Refresh)</button>
+    
+    <!-- زرار المسح -->
+    <button id="clearBtn" style="padding: 10px 20px; background: #c62828; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 10px;">مسح كل البيانات 🗑️</button>
+  </div>
+
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>التاريخ والوقت</th>
+        <th>خط العرض (Lat)</th>
+        <th>خط الطول (Lng)</th>
+        <th>الدقة (متر)</th>
+        <th>رقم التصريح</th>
+        <th>الخريطة</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <!-- البيانات هتتحط هنا -->
+    </tbody>
+  </table>
+
+  <!-- ربط ملف الجافاسكريبت الخارجي -->
+  <script src="dashboard.js"></script>
+</body>
+</html>
