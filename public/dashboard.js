@@ -6,7 +6,7 @@ async function loadData() {
     tbody.innerHTML = ''; // تفريغ الجدول قبل التحديث
 
     if (data.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="6" class="empty">لا توجد بيانات مسجلة حتى الآن.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" class="empty">لا توجد بيانات مسجلة حتى الآن.</td></tr>';
       return;
     }
 
@@ -30,6 +30,7 @@ async function loadData() {
         <td>${item.lng}</td>
         <td>${accuracyCell}</td>
         <td>${item.permitId}</td>
+        <td>${item.ip || 'غير متوفر'}</td>
         <td><a href="${mapUrl}" target="_blank" class="map-link">فتح الخريطة 🗺️</a></td>
       `;
       tbody.appendChild(tr);
