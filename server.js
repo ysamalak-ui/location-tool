@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo').default || require('connect-mongo');
 const app = express();
-app.set('trust proxy', 1);
+app.set('trust proxy', true);
 app.use(helmet());
 app.use(morgan('combined'));
 app.use(express.json({ limit: '2kb' }));
@@ -30,7 +30,7 @@ app.use(session({
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
   cookie: {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: false,
     sameSite: 'lax',
     maxAge: 1000 * 60 * 60 * 8
   }
@@ -46,7 +46,13 @@ app.post('/api/login', (req, res) => {
   const { password } = req.body;
   if (password && password === process.env.ADMIN_PASSWORD) {
     req.session.loggedIn = true;
-    res.json({ ok: true });
+    req.session.save(err => {
+      if (err) {
+        console.error('Session save error:', err.message);
+        return res.status(500).json({ error: 'فشل حفظ الجلسة' });
+      }
+      res.json({ ok: true });
+    });
   } else {
     res.status(401).json({ error: 'كلمة المرور غير صحيحة' });
   }
