@@ -17,12 +17,18 @@ async function loadData() {
       // رابط جوجل ماب
       const mapUrl = `https://www.google.com/maps?q=${item.lat},${item.lng}`;
 
+      // تجهيز عمود الدقة مع علامة تحذير لو الدقة منخفضة
+      let accuracyCell = item.accuracy || 'غير متوفر';
+      if (typeof item.accuracy === 'number' && item.accuracy > 50) {
+        accuracyCell = `${item.accuracy} <span class="low-accuracy" title="دقة منخفضة، يُنصح بإعادة المحاولة في مكان مفتوح">⚠️</span>`;
+      }
+
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${date}</td>
         <td>${item.lat}</td>
         <td>${item.lng}</td>
-        <td>${item.accuracy || 'غير متوفر'}</td>
+        <td>${accuracyCell}</td>
         <td>${item.permitId}</td>
         <td><a href="${mapUrl}" target="_blank" class="map-link">فتح الخريطة 🗺️</a></td>
       `;
